@@ -1,0 +1,658 @@
+Ques 1 :-- WAP to display the following:
+a. Kernel version
+b. CPU type and model
+c. Information on configured memory, amount of free and used
+memory.
+
+Output :--
+
+root@root:~/Desktop/cd$ g++ -o Ques1.o Ques1.cpp
+root@root:~/Desktop/cd$ ./Ques1.o
+kernel version  is : 
+4.4.0-93-generic
+ 
+ CPU INFO  is : 
+cpu family	: 7
+model		: 48
+ 
+ Memory  INFO  is : 
+MemTotal:        1969572 kB
+MemFree:          114564 kB
+MemAvailable:     360445 kB
+
+Ques 2 :-- WAP to print file details including owner access permissions, file access time, where file name is given as a command line argument.
+
+Output :--
+
+root@root:~/Desktop/cd$ g++ -o Ques2.o Ques2.cpp
+root@root:~/Desktop/cd$ ./Ques2.o Ques1.cpp Ques2.o File.txt
+
+ For file Ques1.cpp
+Owner access permissions is :  rw-
+File's last access time is :  Tue Nov 14 20:36:45 2017
+
+
+ For file Ques2.o
+Owner access permissions is :  rwx
+File's last access time is :  Tue Nov 14 20:46:38 2017
+
+
+ For file File.txt
+Owner access permissions is :  r--
+File's last access time is :  Tue Nov 14 20:44:25 2017
+
+Ques 3 :-- WAP to copy a source file into the target file and display the target file using system calls.
+
+Output :--
+
+root@root:~/Desktop/cd$ g++ -o Ques3.o Ques3.cpp
+root@root:~/Desktop/cd$ ./Ques3.o Ques1.cpp File.txt 
+ Successfull writes = 290   Read from buffer 290
+ Successfull writes = 84   Read from buffer 84
+
+ copy complete 
+
+ contents of file File.txt is 
+
+#include<stdlib.h>
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    cout<<"kernel version  is : "<<endl;
+    system("cat /proc/sys/kernel/osrelease");
+
+    cout<<" \n CPU INFO  is : "<<endl;
+    system("cat /proc/cpuinfo | awk 'NR==3,NR==4 {print}'");
+
+    cout<<" \n Memory  INFO  is : "<<endl;
+    system("cat /proc/meminfo | awk '/Mem*/ {print}'");
+
+}
+
+Ques 4 :-- WAP (using fork() and/or exec() commands) where parent and child execute:
+a. same program, same code
+b. same program, different code
+c. different programs
+d. before terminating, the parent waits for the child to finish
+its task.
+
+Output :--
+
+root@root:~/Desktop/cd$ g++ -o Ques4.o Ques4.cpp
+root@root:~/Desktop/cd$ ./Ques4.o 
+
+a parent & child same program , same code
+
+b parent & child same program , different code
+
+c parent & child different program
+
+d parent & child different program with wait()
+a
+ my Parent pid is : 13045
+my  own pid is : 13904
+ my Parent pid is : 13904
+my  own pid is : 13909
+
+b
+ In parent process
+my parent pid is : 13045
+ my own pid is :13918
+
+ In child process
+
+my Parent pid is 13945
+ my own pid is : 13919
+
+c
+In Parent process
+ own pid is : 13971
+ parent pid is :13020
+
+In Child Process
+ own pid is : 13972
+ parent pid is :13971
+root@root:~/Desktop/cd$ File.txt    Ques10.cpp	Ques1.o    Ques2.o    Ques3.o	 Ques4.o    Ques6.cpp  Ques8.cpp
+Output.txt  Ques1.cpp	Ques2.cpp  Ques3.cpp  Ques4.cpp  Ques5.cpp  Ques7.cpp  Ques9.cp
+
+d
+IN Child Process  
+ own pid is : 13975
+  parent pid is : 13974
+File.txt    Ques10.cpp	Ques1.o    Ques2.o    Ques3.o	 Ques4.o    Ques6.cpp  Ques8.cpp
+Output.txt  Ques1.cpp	Ques2.cpp  Ques3.cpp  Ques4.cpp  Ques5.cpp  Ques7.cpp  Ques9.cpp
+
+In Parent Process 
+ own pid is 13974
+ child process terminated is :13975
+
+Ques 5:-- WAP to demonstrate producer-consumer problem using shared memory.
+
+Output :--
+
+root@root:~/Desktop/cd$ g++ -o Ques5.o Ques5.cpp
+root@root:~/Desktop/cd$ ./Ques5.o 
+
+ enter an option
+a produce an element in buffer
+b consume an element from buffer
+c display buffer
+a
+
+ enter an element
+20
+
+ do you want to continue
+c
+
+ enter an option
+a produce an element in buffer
+b consume an element from buffer
+c display buffer
+a
+
+ enter an element
+30
+
+ do you want to continue
+c
+
+ enter an option
+a produce an element in buffer
+b consume an element from buffer
+c display buffer
+a
+
+ enter an element
+40
+
+cannot produce, buffer is full
+
+ do you want to continue
+c
+
+ enter an option
+a produce an element in buffer
+b consume an element from buffer
+c display buffer
+b
+
+20
+ do you want to continue
+c
+
+ enter an option
+a produce an element in buffer
+b consume an element from buffer
+c display buffer
+b
+
+30
+ do you want to continue
+c
+
+ enter an option
+a produce an element in buffer
+b consume an element from buffer
+c display buffer
+b
+
+cannot consume, buffer do not contain any element
+
+ do you want to continue
+n
+
+Ques 6 :-- WAP to demonstrate Inter-Process Communication (IPC) between parent and child using pipe system call.
+
+Output :--
+
+root@root:~/Desktop/cd$ g++ -o Ques6.o Ques6.cpp
+root@root:~/Desktop/cd$ ./Ques6.o 
+
+  In Child Process
+ enter data 
+Manoj kumar
+
+  In Parent Process
+Manoj kumar
+
+Ques 7:-- Write programs to understand working of Pthread library.
+
+Output :--
+
+root@root:~/Desktop/cd$ g++ -pthread -o Ques7.o Ques7.cpp
+root@root:~/Desktop/cd$ ./Ques7.o 
+This is Thread This is Thread 40This is Thread 
+This is Thread 
+Waiting for threads to finish...
+
+Thread joined is :- Thread 0
+
+2
+This is Thread 1
+3
+
+Thread joined is :- Thread 1
+
+Thread joined is :- Thread 2
+
+Thread joined is :- Thread 3
+
+Thread joined is :- Thread 4
+
+ FINISH MAIN
+
+Ques 8:-- Write programs to implement the following scheduling algorithms
+a. FCFS
+b. Shortest Job First
+c. Shortest Remaining Time First
+d. Non-preemptive priority based
+e. Preemptive priority based
+f. Round Robin
+
+Output :--
+
+root@root:~/Desktop/cd$ g++ -o Ques8.o Ques8.cpp
+root@root:~/Desktop/cd$ ./Ques8.o 
+Enter total number of Processes 
+5
+
+ We consider Higher the Number High will be it's Priority
+
+ Enter details of each process
+
+ Enter details for 1 Process 
+
+ Enter name of Process
+A
+
+ Enter Burst Time 
+10
+
+ Enter Priority 
+3
+
+ Enter Arrival Time 
+0
+
+ Enter details for 2 Process 
+
+ Enter name of Process
+B
+
+ Enter Burst Time 
+1
+
+ Enter Priority 
+5
+
+ Enter Arrival Time 
+0
+
+ Enter details for 3 Process 
+
+ Enter name of Process
+C
+
+ Enter Burst Time 
+2
+
+ Enter Priority 
+2
+
+ Enter Arrival Time 
+0
+
+ Enter details for 4 Process 
+
+ Enter name of Process
+D
+
+ Enter Burst Time 
+1
+
+ Enter Priority 
+1
+
+ Enter Arrival Time 
+0
+
+ Enter details for 5 Process 
+
+ Enter name of Process
+E
+
+ Enter Burst Time 
+5
+
+ Enter Priority 
+4
+
+ Enter Arrival Time 
+0
+
+ Select a Scheduling Algorithm 
+
+ a FIFS (First In First Serve)
+ b SJF (Shortest Job First) Non-Preemptive
+ c SRTF (Shortesr Remaining Time First)
+ d Non-Preemptive Priority Based 
+ e Preemptive Priority Based 
+ f Round-Robin
+a
+
+Process Name  Burst Time  Arrival Time  Priority  TurnAround Time  Waiting Time
+
+A	          10	0		 3	    10			0
+B	          1	    0		 5	    11			10
+C	          2	    0		 2	    13			11
+D	          1	    0		 1	    14			13
+E	          5	    0		 4	    19			14
+
+ Average Waiting Time is : 9.6
+ Average TurnAround Time is : 13.4
+ To continue Press C
+c
+
+ Select a Scheduling Algorithm 
+
+ a FIFS (First In First Serve)
+ b SJF (Shortest Job First) Non-Preemptive
+ c SRTF (Shortesr Remaining Time First)
+ d Non-Preemptive Priority Based 
+ e Preemptive Priority Based 
+ f Round-Robin
+b
+
+Process Name  Burst Time  Arrival Time  Priority  TurnAround Time  Waiting Time
+
+A	          10	0		 3	    19			9
+B	          1	    0		 5	    1			0
+C	          2	    0		 2	    4			2
+D	          1	    0		 1	    2			1
+E	          5	    0		 4	    9			4
+
+ Average Waiting Time is : 3.2
+ Average TurnAround Time is : 7
+ To continue Press C
+c
+
+ Select a Scheduling Algorithm 
+
+ a FIFS (First In First Serve)
+ b SJF (Shortest Job First) Non-Preemptive
+ c SRTF (Shortesr Remaining Time First)
+ d Non-Preemptive Priority Based 
+ e Preemptive Priority Based 
+ f Round-Robin
+c
+
+Process Name  Burst Time  Arrival Time  Priority  TurnAround Time  Waiting Time
+
+A	          10	0		 3	    19			9
+B	          1	    0		 5	    1			0
+C	          2	    0		 2	    4			2
+D	          1	    0		 1	    2			1
+E	          5	    0		 4	    9			4
+
+ Average Waiting Time is : 3.2
+ Average TurnAround Time is : 7
+ To continue Press C
+c
+
+ Select a Scheduling Algorithm 
+
+ a FIFS (First In First Serve)
+ b SJF (Shortest Job First) Non-Preemptive
+ c SRTF (Shortesr Remaining Time First)
+ d Non-Preemptive Priority Based 
+ e Preemptive Priority Based 
+ f Round-Robin
+d
+
+Process Name  Burst Time  Arrival Time  Priority  TurnAround Time  Waiting Time
+
+A	          10	0		 3	    16			6
+B	          1	    0		 5	    1			0
+C	          2	    0		 2	    18			16
+D	          1	    0		 1	    19			18
+E	          5	    0		 4	    6			1
+
+ Average Waiting Time is : 8.2
+ Average TurnAround Time is : 12
+ To continue Press C
+c
+
+ Select a Scheduling Algorithm 
+
+ a FIFS (First In First Serve)
+ b SJF (Shortest Job First) Non-Preemptive
+ c SRTF (Shortesr Remaining Time First)
+ d Non-Preemptive Priority Based 
+ e Preemptive Priority Based 
+ f Round-Robin
+e
+
+Process Name  Burst Time  Arrival Time  Priority  TurnAround Time  Waiting Time
+
+A	          10	0		 3	    16			6
+B	          1	    0		 5	    1			0
+C	          2	    0		 2	    18			16
+D	          1	    0		 1	    19			18
+E	          5	    0		 4	    6			1
+
+ Average Waiting Time is : 8.2
+ Average TurnAround Time is : 12
+ To continue Press C
+c
+
+ Select a Scheduling Algorithm 
+
+ a FIFS (First In First Serve)
+ b SJF (Shortest Job First) Non-Preemptive
+ c SRTF (Shortesr Remaining Time First)
+ d Non-Preemptive Priority Based 
+ e Preemptive Priority Based 
+ f Round-Robin
+f
+
+Enter Quantum or Time-Slot 
+2
+
+Process Name  Burst Time  Arrival Time  Priority  TurnAround Time  Waiting Time
+
+A	          10	0		 3	    19			9
+B	          1	    0		 5	    3			2
+C	          2	    0		 2	    5			3
+D	          1	    0		 1	    6			5
+E	          5	    0		 4	    15			10
+
+ Average Waiting Time is : 5.8
+ Average TurnAround Time is : 9.6
+ To continue Press C
+n
+
+Ques 9 :-- WAP to implement first-fit, best-fit and worst-fit allocation strategies.
+
+Output :--
+
+root@root:~/Desktop/cd$ g++ -o Ques9.o Ques9.cpp
+root@root:~/Desktop/cd$ ./Ques9.o 
+Enter number of blocks(holes)
+6
+
+Enter size(KB) of each block(hole)
+
+Enter size of block(hole) 1
+300
+
+Enter size of block(hole) 2
+600
+
+Enter size of block(hole) 3
+350
+
+Enter size of block(hole) 4
+200
+
+Enter size of block(hole) 5
+750
+
+Enter size of block(hole) 6
+125
+
+Enter number of Processes
+5
+
+Enter size(KB) of each Process
+
+Enter size of Process 1
+115
+
+Enter size of Process 2
+500
+
+Enter size of Process 3
+358
+
+Enter size of Process 4
+200
+
+Enter size of Process 5
+375
+
+Select an Memory Management Algorithm
+a First-Fit
+b Best-Fit
+c Worst-Fit
+a
+
+Process 1 is allocated to hole of size  300 bytes
+
+Internal Fragmentation is = 185
+
+Process 2 is allocated to hole of size  600 bytes
+
+Internal Fragmentation is = 100
+
+Process 3 is allocated to hole of size  750 bytes
+
+Internal Fragmentation is = 392
+
+Process 4 is allocated to hole of size  350 bytes
+
+Internal Fragmentation is = 150
+
+Cannot allocate the Process 5
+ due to External Fragmentation
+ External Fragmentation is = 325 bytes
+
+To continue Press C
+c
+
+Select an Memory Management Algorithm
+a First-Fit
+b Best-Fit
+c Worst-Fit
+
+b
+Process 1 is allocated to hole of size  125 bytes
+
+Internal Fragmentation is = 10
+
+Process 2 is allocated to hole of size  600 bytes
+
+Internal Fragmentation is = 100
+
+Process 3 is allocated to hole of size  750 bytes
+
+Internal Fragmentation is = 392
+
+Process 4 is allocated to hole of size  300 bytes
+
+Internal Fragmentation is = 100
+
+Cannot allocate the Process 5 due to External Fragmentation
+ External Fragmentation is = 550 bytes
+
+To continue Press C
+c
+
+Select an Memory Management Algorithm
+a First-Fit
+b Best-Fit
+c Worst-Fit
+
+c
+Process 1 is allocated to hole of size  750 bytes
+
+Internal Fragmentation is = 635
+
+Process 2 is allocated to hole of size  600 bytes
+
+Internal Fragmentation is = 100
+
+Cannot allocate the Process 3 due to External Fragmentation
+ External Fragmentation is = 975
+Process 4 is allocated to hole of size  350 bytes
+
+Internal Fragmentation is = 150
+
+Cannot allocate the Process 5 due to External Fragmentation
+ External Fragmentation is = 625
+
+Ques 10:-- WAP to map logical address to physical address
+
+Output :--
+
+root@root:~/Desktop/cd$ g++ -o Ques10.o Ques10.cpp
+root@root:~/Desktop/cd$ ./Ques10.o 
+
+Enter Page Size in bytes
+1024
+
+Enter Logical Memory Size in bytes
+20480
+
+Total number of Pages = 20
+
+Total number of Frames = 30
+
+Frame Size = 1024 bytes
+
+Page Table is :--
+
+ Page No  Frame No
+
+   0       2
+   1       4
+   2       6
+   3       8
+   4       10
+   5       12
+   6       14
+   7       16
+   8       18
+   9       20
+   10      22
+   11      24
+   12      26
+   13      28
+   14      30
+   15      32
+   16      34
+   17      36
+   18      38
+   19      40
+
+Enter Logical Address
+
+Enter Page Number
+11
+
+Enter Offset
+1022
+
+Phsical Address is = 25598
